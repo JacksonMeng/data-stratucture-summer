@@ -1,1 +1,7 @@
+StringBuilder sb = new StringBuilder("Hello");
+sb.append(" World"); // Appends " World" to the existing string
+sb.insert(5, ","); // Inserts a comma at index 5
+sb.replace(6, 11, "Java"); // Replaces "World" with "Java"
+String result = sb.toString(); // Converts StringBuilder to a String
 
+System.out.println(result); // Output: Hello, Java
