@@ -1,0 +1,54 @@
+import java.util.*;
+
+
+public class Main {
+    private static final List<String> wordList = Arrays.asList("apple", "oracle", "amazon", "microsoft");
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to Guess My Word!");
+
+        Random random = new Random();
+        String secretWord = wordList.get(random.nextInt(wordList.size()));
+
+        int attemptsLeft = 5;
+        boolean wordGuessed = false;
+        StringBuilder guessedWord = new StringBuilder("_".repeat(secretWord.length()));
+
+        Scanner scanner = new Scanner(System.in);
+
+        while (attemptsLeft > 0 && !wordGuessed) {
+            System.out.println("\nAttempts left: " + attemptsLeft);
+            System.out.println("Guessed word: " + guessedWord);
+
+            System.out.print("Enter a letter: ");
+            char guess = scanner.next().charAt(0);
+
+            boolean letterFound = false;
+            for (int i = 0; i < secretWord.length(); i++) {
+                if (secretWord.charAt(i) == guess) {
+                    guessedWord.setCharAt(i, guess);
+                    letterFound = true;
+                }
+            }
+
+            if (letterFound) {
+                System.out.println("Correct guess!");
+            } else {
+                System.out.println("Incorrect guess!");
+                attemptsLeft--;
+            }
+
+            if (guessedWord.toString().equals(secretWord)) {
+                wordGuessed = true;
+            }
+        }
+
+        System.out.println("\nSecret word: " + secretWord);
+
+        if (wordGuessed) {
+            System.out.println("Congratulations! You win!");
+        } else {
+            System.out.println("Sorry, you lost!");
+        }
+    }
+}
