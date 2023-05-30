@@ -1,0 +1,26 @@
+//1.creat a list named wordList
+//2.Print a welcome message
+//3.select a random word:
+     //3.1 creat a random object named random to generate random numbers
+     //3.2 generate a random index within the range of wordList
+     //3.3 retrive a random wor
+// 4. initialize the number of attempts left to 5
+// 5. initialize a boolean variable 'wordGuessed' as false
+// 6. creat a 'StringBuilder' named 'guessedword' with an initial value of underscores
+// 7. creat a scanner object
+// 8. enter a loop continues until the number of attempts left is greater than 0 and the secret word is not guessed:
+     //8.1 display the number of attempts and the current state of the guessed word
+     //8.2 prompt user to enter a letter
+     //8.3 read the first character user input and assign it to the variable 'guess'
+     //8.4 initialize a boolean variable ' letterFound' as false
+     //8.5 iterate over each character in the secret word using a for loop:
+           //8.5.1 if the current character matches the guessed letter, update the corresponding position in 'guessedWord' and set 'LetterFound to ture
+           //8.5.2 if letterFind is true print""
+           //8.5.3 otherwise print ""
+    9.Print the secret word to console
+    10. check the value of 'wordGuessed'
+        // 10.1 if it's true, print""
+        // 10.2 if it's false, print""
+    
+    
+  
