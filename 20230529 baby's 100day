@@ -1,1 +1,19 @@
 
+import java.time.LocalDate;
+public class BabyBirthday {
+    public static void main(String[] args) {
+        // Define the birth date of your baby
+        LocalDate birthDate = LocalDate.of(2023, 2, 28);
+
+        // Add 100 days to the birth date
+        LocalDate hundredthDay = birthDate.plusDays(100);
+
+        // Get the day of the week for the hundredth day
+        String dayOfWeek = hundredthDay.getDayOfWeek().toString();
+
+        // Print the hundredth day and the corresponding day of the week
+        System.out.println("Hundredth day: " + hundredthDay);
+        System.out.println("Day of the week: " + dayOfWeek);
+    }
+}
+
