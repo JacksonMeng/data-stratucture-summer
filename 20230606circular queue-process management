@@ -1,0 +1,61 @@
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+class Process {
+    int pid;
+    int burstTime;
+    int remainingBurstTime;
+
+    public Process(int pid, int burstTime) {
+        this.pid = pid;
+        this.burstTime = burstTime;
+        this.remainingBurstTime = burstTime;
+    }
+}
+
+class RoundRobinScheduler {
+    private Queue<Process> queue;
+    private int quantum;
+
+    public RoundRobinScheduler(int quantum) {
+        this.quantum = quantum;
+        queue = new ArrayDeque<>();
+    }
+
+    public void addProcess(Process process) {
+        queue.add(process);
+    }
+
+    public void schedule() {
+        while (!queue.isEmpty()) {
+            Process currentProcess = queue.poll();
+            currentProcess.remainingBurstTime -= quantum;
+
+            if (currentProcess.remainingBurstTime <= 0) {
+                System.out.println("Process " + currentProcess.pid + " completed. Burst time was " + currentProcess.burstTime);
+            } else {
+                queue.add(currentProcess);
+                System.out.println("Process " + currentProcess.pid + " executed for " + quantum + " units. Remaining burst time is " + currentProcess.remainingBurstTime);
+            }
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        long startMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        long startTime = System.nanoTime();
+
+        RoundRobinScheduler scheduler = new RoundRobinScheduler(10);
+        scheduler.addProcess(new Process(1, 27));
+        scheduler.addProcess(new Process(2, 18));
+        scheduler.addProcess(new Process(3, 25));
+        scheduler.schedule();
+
+        long endTime = System.nanoTime();
+        long endMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+
+        System.out.println("Execution time: " + (endTime - startTime) / 1_000_000 + " ms");
+        System.out.println("Memory used: " + (endMemory - startMemory) / 1024 + " KB");
+    }
+}
