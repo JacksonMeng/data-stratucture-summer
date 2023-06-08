@@ -1,0 +1,65 @@
+public class LinkedList{
+    static class Node{
+        int data;
+        Node next;
+
+        Node(int data){
+            this.data = data;
+            this.next = next;
+
+        }
+    }
+    Node head;
+
+    public void insert(int data){
+        Node newNode = new Node(data);
+
+        if (head == null){
+            head = newNode;
+        }else{
+           Node last = head;
+           while(last.next!= null){
+               last = last.next;
+            }
+            last.next = newNode;
+
+        }
+
+    }
+    public void printLists(){
+        Node currentNode = head;
+        if (head == null){
+            System.out.println("current LinkedList is empty");
+        }else{
+            while(currentNode.next!= null){
+                System.out.println(currentNode.data+ "—>");
+                currentNode = currentNode.next;
+            }
+            System.out.println("null");
+        }
+    }
+    public void removeDuplicates(){
+        Node current = this.head;
+        if (current.data==current.next.data){
+            current.next = current.next.next;
+        }else{
+            current = current.next;
+        }
+    }
+
+    public static void main(String[] args){
+        LinkedList linkedList = new LinkedList();
+        linkedList.insert(1);
+        linkedList.insert(1);
+        linkedList.insert(2);
+        linkedList.insert(3);
+        linkedList.insert(3);
+
+        System.out.println("linkedList before remove duplicates: ");
+        linkedList.printLists();
+        linkedList.removeDuplicates();
+        System.out.println("linkedList after remove duplicates: ");
+        linkedList.printLists();
+        
+    }
+}
