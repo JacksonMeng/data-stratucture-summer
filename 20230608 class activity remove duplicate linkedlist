@@ -1,0 +1,97 @@
+public class LinkedList{
+    static class Node{
+        int data;
+
+        Node next;
+
+        Node(int data){
+            this.data = data;
+            this.next = next;
+        }
+
+    }
+    Node head;
+    public void insert(int data){
+        Node newNode = new Node(data);
+
+        if (head == null){
+            head = newNode;
+        }else{
+            Node last = head;
+                while(last.next!= null){
+                    last = last.next;
+                }
+                last.next = newNode;
+            }
+        }
+
+    public void printList(){
+        Node currentNode = head;
+        if (currentNode == null){
+            System.out.println("the node is Empty");
+        }else{
+            while(currentNode!= null){
+                System.out.println("node is "+ currentNode.data+"->");
+                currentNode = currentNode.next;
+            }
+            System.out.println("null");
+        }
+    }
+    public void removeDuplicates(){
+        Node current = this.head;
+        while(current!= null & current.next!= null){
+            if (current.data == current.next.data){
+                current.next = current.next.next;
+            }else{
+                current = current.next;
+            }
+        }
+
+
+    }
+    public void sortLinkedList() {
+        Node current = head;
+        Node index = null ;
+        int temp;
+
+        if(head == null){
+            return;
+        }else{
+            while(current!= null){
+                index = current.next;
+                while(index!= null){
+                    if(current.data> index.data){
+                        temp = current.data;
+                        current.data = index.data;
+                        index.data = temp;
+                    }
+                    index = index.next;
+                }
+                current = current.next;
+            }
+        }
+
+    }
+
+    public static void main(String[] args){
+        LinkedList linkedList = new LinkedList();
+        linkedList.insert(4);
+        linkedList.insert(4);
+        linkedList.insert(3);
+        linkedList.insert(3);
+        linkedList.insert(2);
+        linkedList.insert(2);
+        linkedList.insert(5);
+
+        linkedList.printList();
+
+        linkedList.sortLinkedList();
+
+
+        linkedList.printList();
+
+        linkedList.removeDuplicates();
+        linkedList.printList();
+
+    }
+}
