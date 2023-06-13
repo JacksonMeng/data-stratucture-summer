@@ -1,0 +1,76 @@
+// Let's start by defining the class "CircularQueue"
+public class CircularQueue {
+    // These are our class variables. We need an array "queue" to hold the values in the queue.
+    // We also need "front" and "rear" to keep track of the front and rear of the queue,
+    // and "size" to know how many items the queue can hold.
+    private int[] queue;
+    private int front, rear, size;
+
+    // This is the constructor. It's a special function that is run when an object of the class is created.
+    public CircularQueue(int k) {
+        queue = new int[k]; // Initialize the queue array with size k
+        front = -1; // -1 indicates the queue is empty
+        rear = -1; // -1 indicates the queue is empty
+        size = k; // The maximum size of our queue is k
+    }
+
+    // This function adds an item to the end of the queue (we call this "enqueueing")
+    public boolean enqueue(int value) {
+        // Before we add an item, we need to check if there's space. If the queue is full, we can't add an item.
+        if (isFull()) {
+            return false; // Return false to indicate the enqueue operation failed
+        } else {
+            rear = (rear + 1) % size; // Calculate the new rear index 
+            queue[rear] = value; // Add the new item at the rear of the queue
+            if (front == -1) { // If the queue was empty, front will also be this inserted value's index
+                front = rear;
+            }
+            return true; // Return true to indicate the enqueue operation succeeded
+        }
+    }
+
+    // This function removes an item from the front of the queue (we call this "dequeueing")
+    public boolean dequeue() {
+        // Before we remove an item, we need to check if there are any items. If the queue is empty, we can't remove an item.
+        if (isEmpty()) {
+            return false; // Return false to indicate the dequeue operation failed
+        } else {
+            if (front == rear) { // If there's only one item in the queue
+                front = -1; // Reset front
+                rear = -1; // Reset rear
+            } else {
+                front = (front + 1) % size; // Calculate the new front index
+            }
+            return true; // Return true to indicate the dequeue operation succeeded
+        }
+    }
+
+    // This function checks if the queue is full
+    public boolean isFull() {
+        // The queue is full if the next position after rear is front
+        return ((rear + 1) % size) == front;
+    }
+
+    // This function checks if the queue is empty
+    public boolean isEmpty() {
+        // The queue is empty if the front is -1
+        return front == -1;
+    }
+
+    // This is the main function, which tests our queue
+    public static void main(String[] args) {
+        // We create a queue that can hold 5 items
+        CircularQueue queue = new CircularQueue(5);
+
+        // We add (enqueue) 5 items to the queue
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        queue.enqueue(4);
+        queue.enqueue(5);
+
+        // Then we remove (dequeue) all items from the queue until it's empty
+        while (!queue.isEmpty()) {
+            queue.dequeue();
+        }
+
