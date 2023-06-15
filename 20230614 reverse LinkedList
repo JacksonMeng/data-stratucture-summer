@@ -1,0 +1,14 @@
+public ListNode reverseLinkedList(ListNode head) {
+    ListNode previousNode = null;
+    ListNode currentNode = head;
+    ListNode nextNode;
+    
+    while (currentNode != null) {
+        nextNode = currentNode.next;  // temporarily store the next node
+        currentNode.next = previousNode;  // reverse the link
+        previousNode = currentNode;  // move one step forward in the list
+        currentNode = nextNode;
+    }
+    
+    return previousNode;
+}
