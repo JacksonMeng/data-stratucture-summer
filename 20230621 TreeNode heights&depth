@@ -1,0 +1,94 @@
+
+import java.util.*;
+public class TreeNode <T>{
+    private T data;
+    private TreeNode<T> parent;
+
+    private List<TreeNode<T>> children;
+
+
+
+    public TreeNode(T data){
+        this.data = data;
+        this.children = new ArrayList<>();
+    }
+
+    public void addChild(TreeNode<T> child){
+        child.parent = this;
+        this.children.add(child);
+    }
+    public void addChild(T childdata){
+        TreeNode<T> childNode = new TreeNode<>(childdata);
+        this.addChild(childNode);
+    }
+
+    public TreeNode findNode(T data){
+        if(this.data.equals(data)){
+            return this;
+        }
+        for (TreeNode <T> child: this.children){
+            TreeNode<T> found = child.findNode(data);
+            if (found!= null){
+                return found;
+            }
+        }
+        return null;
+    }
+    public int calculateHeight(){
+        if(this.children.isEmpty()){
+            return 0;
+        }else{
+            int maxChildHeights = 0;
+            for(TreeNode<T> child: this.children){
+                int childHeight = child.calculateHeight();
+                if(childHeight> maxChildHeights){
+                    maxChildHeights = childHeight;
+                }
+            }
+            return maxChildHeights+1;
+        }
+    }
+
+    public int calculateDepth(){
+        if(this.parent==null){
+            return 0;
+        }else{
+            return parent.calculateDepth()+1;
+        }
+    }
+}
+
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        TreeNode root = new TreeNode<>("Washington");
+
+
+        TreeNode losangles = new TreeNode<>("Los Angles");
+        root.addChild(losangles);
+        losangles.addChild("Rowland Heights");
+
+        TreeNode boston = new TreeNode<>("Boston");
+        root.addChild(boston);
+        boston.addChild("Ktown");
+
+        String[] citis = {"Washington", "Los Angles", "Rowland Heights", "Boston", "Ktown"};
+        for(int i =1; i<= 5; i++){
+            System.out.println(i+citis[i-1]);
+        }
+        System.out.println("please enter a number to choose the city");
+        int cityNumb = scanner.nextInt();
+
+        String city = citis[cityNumb-1];
+
+        TreeNode<String> chosenNode = root.findNode(city);
+        if(chosenNode==null){
+            System.out.println("city not found in the tree!");
+        }else{
+            System.out.println("the depth of the city is : " + chosenNode.calculateHeight());
+            System.out.println("the height of the city is : " + chosenNode.calculateDepth());
+        }
+    }
+}
