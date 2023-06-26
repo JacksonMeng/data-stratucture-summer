@@ -1,0 +1,62 @@
+import java.util.*;
+
+public class Course {
+    String id;
+    String title;
+    List<String> prerequisites;
+
+    public Course(String id, String title, List<String> prerequisites) {
+        this.id = id;
+        this.title = title;
+        this.prerequisites = prerequisites;
+    }
+}
+
+
+public class CourseGraph {
+    private Map<String, List<String>> adjList;
+
+    public CourseGraph() {
+        this.adjList = new HashMap<>();
+    }
+
+    public void addCourse(Course course) {
+        this.adjList.putIfAbsent(course.id, new ArrayList<>());
+        for (String prerequisite : course.prerequisites) {
+            this.adjList.get(course.id).add(prerequisite);
+        }
+    }
+
+    public List<String> getPrerequisites(String id) {
+        return this.adjList.get(id);
+    }
+
+    public void printPrerequisites(String id) {
+        List<String> prerequisites = getPrerequisites(id);
+        if (prerequisites == null) {
+            System.out.println("Course not found.");
+        } else if (prerequisites.isEmpty()) {
+            System.out.println("No prerequisites for this course.");
+        } else {
+            System.out.println("Prerequisites for course " + id + ": " + prerequisites);
+        }
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        CourseGraph courseGraph = new CourseGraph();
+
+        List<String> cs101Prerequisites = Arrays.asList("MA101");
+        Course cs101 = new Course("CS101", "Intro to CS", cs101Prerequisites);
+        courseGraph.addCourse(cs101);
+
+        List<String> cs201Prerequisites = Arrays.asList("CS101");
+        Course cs201 = new Course("CS201", "Data Structures", cs201Prerequisites);
+        courseGraph.addCourse(cs201);
+
+        courseGraph.printPrerequisites("CS101");
+        courseGraph.printPrerequisites("CS201");
+    }
+}
